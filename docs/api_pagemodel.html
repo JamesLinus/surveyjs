@@ -22,7 +22,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="/index.html">Survey.JS</a>
             <a class="version-link" role="button" href="https://github.com/surveyjs/surveyjs/releases" target="_blank">
-                the latest version 0.12.14
+                the latest version 0.12.15
             </a>
         </div>
         <ul class="nav navbar-nav">
@@ -198,41 +198,51 @@
         </select>
     </p>
     <div data-bind="foreach: filteredItems">
-        <div><a data-bind="click:showHide"><span data-bind="text: name"></span></a><span>  </span> <span data-bind="text: pmeType"></span></div>
-        <div data-bind="visible: koExpanded">
-            <p>
-                <h4><span data-bind="text: name"></span><span>  </span><span data-bind="text: pmeType"></h4>
-                <div>
-                    <span>Type: </span><span data-bind="text:type"></span><span> </span><b><span data-bind="visible: pmeType =='property', text: propertySet"></span></b>
-                </div>
-                <div data-bind="visible: isSerialized">
-                    The property is serializable. It is stored in survey json and you can edit it in the SurveyJS Editor.
-                </div>
-                <div data-bind="visible: hasDefaultValue">
-                    <span>The default value is: </span><span data-bind="text:defaultValue"></span>
-                </div>
-                <div data-bind="visible: hasSerializedChoices">
-                    <span>You may set the following values into this property: </span>
-                    <!-- ko foreach: serializedChoices -->
-                    <span data-bind="text:$data"></span><span data-bind="if: ($index() !== ($parent.serializedChoices.length - 1))">, </span>
-                    <!-- /ko -->
-                </div>
-                <div data-bind="visible: hasDocumentation, html: documentation"></div>
-                <div data-bind="visible: hasParameters">
-                    <h5>Parameters:</h5>
-                    <div data-bind="foreach: parameters">
-                        <div><span>Name: </span><span data-bind="text:name"></span><span>, type: </span><span data-bind="text:type"></span></div>
-                        <div data-bind="visible: hasDocumentation"><span>Documentation: </span><span data-bind="html:documentation"></span></div>
+        <div data-bind="attr:{id: name}">
+            <div><a data-bind="click:showHide"><span data-bind="text: name"></span></a><span>  </span> <span data-bind="text: pmeType"></span></div>
+            <div data-bind="visible: koExpanded">
+                <p>
+                    <h4><span data-bind="text: name"></span><span>  </span><span data-bind="text: pmeType"></h4>
+                    <div>
+                        <span>Type: </span><span data-bind="text:type"></span><span> </span><b><span data-bind="visible: pmeType =='property', text: propertySet"></span></b>
                     </div>
-                </div>
-                <div>
-                    <span>Implemented in: </span>
-                    <!-- ko foreach: implemetedIn -->
-                    <a data-bind="attr: {href: href}"><span data-bind="text: name"></span></a>
-                    <!-- /ko -->
-                </div>
-                <!--<a data-bind="attr: {href: href}"><span>Show more</span></a>-->
-            </p>
+                    <div data-bind="visible: isSerialized">
+                        The property is serializable. It is stored in survey json and you can edit it in the SurveyJS Editor.
+                    </div>
+                    <div data-bind="visible: hasDefaultValue">
+                        <span>The default value is: </span><span data-bind="text:defaultValue"></span>
+                    </div>
+                    <div data-bind="visible: hasSerializedChoices">
+                        <span>You may set the following values into this property: </span>
+                        <!-- ko foreach: serializedChoices -->
+                        <span data-bind="text:$data"></span><span data-bind="if: ($index() !== ($parent.serializedChoices.length - 1))">, </span>
+                        <!-- /ko -->
+                    </div>
+                    <div data-bind="visible: hasDocumentation, html: documentation"></div>
+                    <div data-bind="visible: hasParameters">
+                        <h5>Parameters:</h5>
+                        <div data-bind="foreach: parameters">
+                            <div><span>Name: </span><span data-bind="text:name"></span><span>, type: </span><span data-bind="text:type"></span></div>
+                            <div data-bind="visible: hasDocumentation"><span>Documentation: </span><span data-bind="html:documentation"></span></div>
+                        </div>
+                    </div>
+                    <div data-bind="visible: seeAlso.length > 0">
+                        <span>See also: </span>
+                        <!-- ko foreach: seeAlso -->
+                        <a data-bind="attr: {href: href}"><span data-bind="text: name"></span></a>
+                        <!-- /ko -->
+                    </div>
+                    <div>
+                        <span>Implemented in: </span>
+                        <!-- ko foreach: implemetedIn -->
+                        <a data-bind="attr: {href: href}"><span data-bind="text: name"></span></a>
+                        <!-- /ko -->
+                    </div>
+                    <div data-bind="visible: linkToPropertyFile.length > 0">
+                        <a data-bind="attr: {href: linkToPropertyFile}"><span>Show more</span></a>
+                    </div>
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -247,240 +257,474 @@
     };
     var pmes = [
     
-    { name: "isValueEmpty", className: "Base", type: "(value: any) => boolean", pmeType: "method", "href": "Base/isValueEmpty.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "isValueEmpty", className: "Base", type: "(value: any) => boolean", pmeType: "method", "href": "Base/isValueEmpty.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "value", documentation: "\n", type: "any" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getType", className: "Base", type: "() => string", pmeType: "method", "href": "Base/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getType", className: "Base", type: "() => string", pmeType: "method", "href": "Base/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the type of the object as a string as it represents in the json.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "parent", className: "PanelModelBase", type: "PanelModelBase", pmeType: "property", "href": "PanelModelBase/parent.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "parent", className: "PanelModelBase", type: "PanelModelBase", pmeType: "property", "href": "PanelModelBase/parent.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "visibleIf", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/visibleIf.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "visibleIf", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/visibleIf.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "visibleIndex", className: "PanelModelBase", type: "number", pmeType: "property", "href": "PanelModelBase/visibleIndex.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "visibleIndex", className: "PanelModelBase", type: "number", pmeType: "property", "href": "PanelModelBase/visibleIndex.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "data", className: "PanelModelBase", type: "ISurvey", pmeType: "property", "href": "PanelModelBase/data.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "data", className: "PanelModelBase", type: "ISurvey", pmeType: "property", "href": "PanelModelBase/data.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "title", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/title.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "title", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/title.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "locTitle", className: "PanelModelBase", type: "LocalizableString", pmeType: "property", "href": "PanelModelBase/locTitle.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "locTitle", className: "PanelModelBase", type: "LocalizableString", pmeType: "property", "href": "PanelModelBase/locTitle.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getLocale", className: "PanelModelBase", type: "() => string", pmeType: "method", "href": "PanelModelBase/getLocale.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getLocale", className: "PanelModelBase", type: "() => string", pmeType: "method", "href": "PanelModelBase/getLocale.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getMarkdownHtml", className: "PanelModelBase", type: "(text: string) => string", pmeType: "method", "href": "PanelModelBase/getMarkdownHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getMarkdownHtml", className: "PanelModelBase", type: "(text: string) => string", pmeType: "method", "href": "PanelModelBase/getMarkdownHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "text", documentation: "\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "id", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/id.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "id", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/id.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "isPanel", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/isPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "isPanel", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/isPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "questions", className: "PanelModelBase", type: "QuestionBase[]", pmeType: "property", "href": "PanelModelBase/questions.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "questions", className: "PanelModelBase", type: "QuestionBase[]", pmeType: "property", "href": "PanelModelBase/questions.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "elements", className: "PanelModelBase", type: "IElement[]", pmeType: "property", "href": "PanelModelBase/elements.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "elements", className: "PanelModelBase", type: "IElement[]", pmeType: "property", "href": "PanelModelBase/elements.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "containsElement", className: "PanelModelBase", type: "(element: IElement) => boolean", pmeType: "method", "href": "PanelModelBase/containsElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "containsElement", className: "PanelModelBase", type: "(element: IElement) => boolean", pmeType: "method", "href": "PanelModelBase/containsElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "element", documentation: "\n", type: "IElement" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "hasErrors", className: "PanelModelBase", type: "(fireCallback?: boolean, focuseOnFirstError?: boolean) => boolean", pmeType: "method", "href": "PanelModelBase/hasErrors.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "hasErrors", className: "PanelModelBase", type: "(fireCallback?: boolean, focuseOnFirstError?: boolean) => boolean", pmeType: "method", "href": "PanelModelBase/hasErrors.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "fireCallback", documentation: "\n", type: "boolean" }, 
             
             { name: "focuseOnFirstError", documentation: "\n", type: "boolean" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "addQuestionsToList", className: "PanelModelBase", type: "(list: IQuestion[], visibleOnly?: boolean) => void", pmeType: "method", "href": "PanelModelBase/addQuestionsToList.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "addQuestionsToList", className: "PanelModelBase", type: "(list: IQuestion[], visibleOnly?: boolean) => void", pmeType: "method", "href": "PanelModelBase/addQuestionsToList.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "list", documentation: "\n", type: "IQuestion[]" }, 
             
             { name: "visibleOnly", documentation: "\n", type: "boolean" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "rows", className: "PanelModelBase", type: "QuestionRowModel[]", pmeType: "property", "href": "PanelModelBase/rows.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "rows", className: "PanelModelBase", type: "QuestionRowModel[]", pmeType: "property", "href": "PanelModelBase/rows.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "isActive", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/isActive.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "isActive", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/isActive.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onSurveyLoad", className: "PanelModelBase", type: "() => void", pmeType: "method", "href": "PanelModelBase/onSurveyLoad.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onSurveyLoad", className: "PanelModelBase", type: "() => void", pmeType: "method", "href": "PanelModelBase/onSurveyLoad.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "processedTitle", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/processedTitle.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "processedTitle", className: "PanelModelBase", type: "string", pmeType: "property", "href": "PanelModelBase/processedTitle.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "visible", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/visible.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "visible", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/visible.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "isVisible", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/isVisible.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "isVisible", className: "PanelModelBase", type: "boolean", pmeType: "property", "href": "PanelModelBase/isVisible.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getIsPageVisible", className: "PanelModelBase", type: "(exceptionQuestion: IQuestion) => boolean", pmeType: "method", "href": "PanelModelBase/getIsPageVisible.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getIsPageVisible", className: "PanelModelBase", type: "(exceptionQuestion: IQuestion) => boolean", pmeType: "method", "href": "PanelModelBase/getIsPageVisible.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "exceptionQuestion", documentation: "\n", type: "IQuestion" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "addElement", className: "PanelModelBase", type: "(element: IElement, index?: number) => void", pmeType: "method", "href": "PanelModelBase/addElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "addElement", className: "PanelModelBase", type: "(element: IElement, index?: number) => void", pmeType: "method", "href": "PanelModelBase/addElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "element", documentation: "\n", type: "IElement" }, 
             
             { name: "index", documentation: "\n", type: "number" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "addQuestion", className: "PanelModelBase", type: "(question: QuestionBase, index?: number) => void", pmeType: "method", "href": "PanelModelBase/addQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "addQuestion", className: "PanelModelBase", type: "(question: QuestionBase, index?: number) => void", pmeType: "method", "href": "PanelModelBase/addQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "question", documentation: "\n", type: "QuestionBase" }, 
             
             { name: "index", documentation: "\n", type: "number" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "addPanel", className: "PanelModelBase", type: "(panel: PanelModel, index?: number) => void", pmeType: "method", "href": "PanelModelBase/addPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "addPanel", className: "PanelModelBase", type: "(panel: PanelModel, index?: number) => void", pmeType: "method", "href": "PanelModelBase/addPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "panel", documentation: "\n", type: "PanelModel" }, 
             
             { name: "index", documentation: "\n", type: "number" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "addNewQuestion", className: "PanelModelBase", type: "(questionType: string, name: string) => QuestionBase", pmeType: "method", "href": "PanelModelBase/addNewQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "addNewQuestion", className: "PanelModelBase", type: "(questionType: string, name: string) => QuestionBase", pmeType: "method", "href": "PanelModelBase/addNewQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "questionType", documentation: "\n", type: "string" }, 
             
             { name: "name", documentation: "\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "addNewPanel", className: "PanelModelBase", type: "(name: string) => PanelModel", pmeType: "method", "href": "PanelModelBase/addNewPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "addNewPanel", className: "PanelModelBase", type: "(name: string) => PanelModel", pmeType: "method", "href": "PanelModelBase/addNewPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "name", documentation: "\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "removeElement", className: "PanelModelBase", type: "(element: IElement) => boolean", pmeType: "method", "href": "PanelModelBase/removeElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "removeElement", className: "PanelModelBase", type: "(element: IElement) => boolean", pmeType: "method", "href": "PanelModelBase/removeElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "element", documentation: "\n", type: "IElement" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "removeQuestion", className: "PanelModelBase", type: "(question: QuestionBase) => void", pmeType: "method", "href": "PanelModelBase/removeQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "removeQuestion", className: "PanelModelBase", type: "(question: QuestionBase) => void", pmeType: "method", "href": "PanelModelBase/removeQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "question", documentation: "\n", type: "QuestionBase" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "runCondition", className: "PanelModelBase", type: "(values: HashTable<any>) => void", pmeType: "method", "href": "PanelModelBase/runCondition.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "runCondition", className: "PanelModelBase", type: "(values: HashTable<any>) => void", pmeType: "method", "href": "PanelModelBase/runCondition.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "values", documentation: "\n", type: "HashTable<any>" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onLocaleChanged", className: "PanelModelBase", type: "() => void", pmeType: "method", "href": "PanelModelBase/onLocaleChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onLocaleChanged", className: "PanelModelBase", type: "() => void", pmeType: "method", "href": "PanelModelBase/onLocaleChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getType", className: "PageModel", type: "() => string", pmeType: "method", "href": "PageModel/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getType", className: "PageModel", type: "() => string", pmeType: "method", "href": "PageModel/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "num", className: "PageModel", type: "number", pmeType: "property", "href": "PageModel/num.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "num", className: "PageModel", type: "number", pmeType: "property", "href": "PageModel/num.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "navigationButtonsVisibility", className: "PageModel", type: "string", pmeType: "property", "href": "PageModel/navigationButtonsVisibility.html", isSerialized: "true", defaultValue: "inherit",serializedChoices:  ["inherit","show","hide"], documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "navigationButtonsVisibility", className: "PageModel", type: "string", pmeType: "property", "href": "PageModel/navigationButtonsVisibility.html", isSerialized: "true", defaultValue: "inherit",serializedChoices:  ["inherit","show","hide"], documentation: "\n", hasSet: "true",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "focusFirstQuestion", className: "PageModel", type: "() => void", pmeType: "method", "href": "PageModel/focusFirstQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "focusFirstQuestion", className: "PageModel", type: "() => void", pmeType: "method", "href": "PageModel/focusFirstQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "focusFirstErrorQuestion", className: "PageModel", type: "() => void", pmeType: "method", "href": "PageModel/focusFirstErrorQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "focusFirstErrorQuestion", className: "PageModel", type: "() => void", pmeType: "method", "href": "PageModel/focusFirstErrorQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "scrollToTop", className: "PageModel", type: "() => void", pmeType: "method", "href": "PageModel/scrollToTop.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "scrollToTop", className: "PageModel", type: "() => void", pmeType: "method", "href": "PageModel/scrollToTop.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     ];
     pmes.sort(function(a, b) {
         if(a.name == b.name) return 0;
@@ -488,6 +732,23 @@
     });
     function getClassObj(className) {
         return {name: className, href: "/docs/api_" + className.toLowerCase() + ".html"};
+    }
+    function getLinkObj(name) {
+        if(!name) return {name: "", href: ""};
+        var pos = name.indexOf('.');
+        var href = "";
+        if(pos < 0) {
+            if(name[0] === name[0].toUpperCase()) {
+                href = "/docs/api_" + name.toLowerCase() + ".html"
+            } else {
+                href = "#" + name;
+            }
+        } else {
+            var className = name.substr(0, pos);
+            var hash = name.substr(pos + 1);
+            href = "/docs/api_" + name.toLowerCase() + ".html#" + hash;
+        }
+        return {name: name, href: href};
     }
     var ModelItem = function(item) {
         var self = this;
@@ -500,6 +761,7 @@
         this.pmeType = item.pmeType;
         this.href = item.href;
         this.documentation = item.documentation;
+        this.linkToPropertyFile = item.linkToPropertyFile;
         this.hasDocumentation = item.documentation && item.documentation.length > 0;
         this.hasDefaultValue = item.defaultValue != undefined;
         if(this.hasDefaultValue) this.defaultValue = item.defaultValue; else this.defaultValue = null;
@@ -521,6 +783,12 @@
         this.propertySet = this.hasSet ? " writable" : " readonly";
         this.isSerialized = item.isSerialized == "true";
         this.koExpanded = ko.observable(false);
+        this.seeAlso = [];
+        if(item.see) {
+            for(var i = 0; i < item.see.length; i ++) {
+                this.seeAlso.push(getLinkObj(item.see[i]));
+            }
+        }
         this.showHide = function() {
             self.koExpanded(!self.koExpanded());
         }
@@ -554,12 +822,19 @@
                 pmesHash[modelItem.name] = modelItem;
             }
         }
+        this.getHashName = function() {
+            var name = window.location.hash;
+            if(!name) return "";
+            return name.substr(1);
+        }
         this.filterString = ko.observable("");
         this.showPMETypes = ko.observable("all");
+        this.hashName = ko.observable(this.getHashName());
         this.koDummy = ko.observable(0);
         this.filteredItems = ko.computed(function() {
             var dummy = self.koDummy();
              return ko.utils.arrayFilter(self.items, function(item) {
+                if(self.hashName() == item.name) return true;
                 if(self.showPMETypes() != "all") {
                     if(self.showPMETypes() != item.pmeType) return false;
                 }
@@ -575,9 +850,32 @@
         this.showPMETypes.subscribe(function(newValue) {
             self.koDummy(self.koDummy() + 1);
         });
+        this.hashName.subscribe(function(newValue) {
+            self.koDummy(self.koDummy() + 1);
+        });
+        this.hashChanged = function() {
+            this.hashName(this.getHashName());
+            name = this.hashName();
+            if(!name) return;
+            for(var i = 0; i < this.items.length; i ++) {
+                if(this.items[i].name == name) {
+                    this.items[i].koExpanded(true);
+                    break;
+                }
+            }
+        }
+        this.hashChanged();
 };
- 
-ko.applyBindings(new Model("PageModel"), document.getElementById("objectProperties"));
+
+var curModel = new Model("PageModel");
+
+ko.applyBindings(curModel, document.getElementById("objectProperties"));
+
+if ("onhashchange" in window) {
+    window.onhashchange = function () {
+        curModel.hashChanged();
+    }
+ }
  </script>
 
                 </div>

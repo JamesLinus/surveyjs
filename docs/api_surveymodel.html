@@ -22,7 +22,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="/index.html">Survey.JS</a>
             <a class="version-link" role="button" href="https://github.com/surveyjs/surveyjs/releases" target="_blank">
-                the latest version 0.12.14
+                the latest version 0.12.15
             </a>
         </div>
         <ul class="nav navbar-nav">
@@ -198,41 +198,51 @@
         </select>
     </p>
     <div data-bind="foreach: filteredItems">
-        <div><a data-bind="click:showHide"><span data-bind="text: name"></span></a><span>  </span> <span data-bind="text: pmeType"></span></div>
-        <div data-bind="visible: koExpanded">
-            <p>
-                <h4><span data-bind="text: name"></span><span>  </span><span data-bind="text: pmeType"></h4>
-                <div>
-                    <span>Type: </span><span data-bind="text:type"></span><span> </span><b><span data-bind="visible: pmeType =='property', text: propertySet"></span></b>
-                </div>
-                <div data-bind="visible: isSerialized">
-                    The property is serializable. It is stored in survey json and you can edit it in the SurveyJS Editor.
-                </div>
-                <div data-bind="visible: hasDefaultValue">
-                    <span>The default value is: </span><span data-bind="text:defaultValue"></span>
-                </div>
-                <div data-bind="visible: hasSerializedChoices">
-                    <span>You may set the following values into this property: </span>
-                    <!-- ko foreach: serializedChoices -->
-                    <span data-bind="text:$data"></span><span data-bind="if: ($index() !== ($parent.serializedChoices.length - 1))">, </span>
-                    <!-- /ko -->
-                </div>
-                <div data-bind="visible: hasDocumentation, html: documentation"></div>
-                <div data-bind="visible: hasParameters">
-                    <h5>Parameters:</h5>
-                    <div data-bind="foreach: parameters">
-                        <div><span>Name: </span><span data-bind="text:name"></span><span>, type: </span><span data-bind="text:type"></span></div>
-                        <div data-bind="visible: hasDocumentation"><span>Documentation: </span><span data-bind="html:documentation"></span></div>
+        <div data-bind="attr:{id: name}">
+            <div><a data-bind="click:showHide"><span data-bind="text: name"></span></a><span>  </span> <span data-bind="text: pmeType"></span></div>
+            <div data-bind="visible: koExpanded">
+                <p>
+                    <h4><span data-bind="text: name"></span><span>  </span><span data-bind="text: pmeType"></h4>
+                    <div>
+                        <span>Type: </span><span data-bind="text:type"></span><span> </span><b><span data-bind="visible: pmeType =='property', text: propertySet"></span></b>
                     </div>
-                </div>
-                <div>
-                    <span>Implemented in: </span>
-                    <!-- ko foreach: implemetedIn -->
-                    <a data-bind="attr: {href: href}"><span data-bind="text: name"></span></a>
-                    <!-- /ko -->
-                </div>
-                <!--<a data-bind="attr: {href: href}"><span>Show more</span></a>-->
-            </p>
+                    <div data-bind="visible: isSerialized">
+                        The property is serializable. It is stored in survey json and you can edit it in the SurveyJS Editor.
+                    </div>
+                    <div data-bind="visible: hasDefaultValue">
+                        <span>The default value is: </span><span data-bind="text:defaultValue"></span>
+                    </div>
+                    <div data-bind="visible: hasSerializedChoices">
+                        <span>You may set the following values into this property: </span>
+                        <!-- ko foreach: serializedChoices -->
+                        <span data-bind="text:$data"></span><span data-bind="if: ($index() !== ($parent.serializedChoices.length - 1))">, </span>
+                        <!-- /ko -->
+                    </div>
+                    <div data-bind="visible: hasDocumentation, html: documentation"></div>
+                    <div data-bind="visible: hasParameters">
+                        <h5>Parameters:</h5>
+                        <div data-bind="foreach: parameters">
+                            <div><span>Name: </span><span data-bind="text:name"></span><span>, type: </span><span data-bind="text:type"></span></div>
+                            <div data-bind="visible: hasDocumentation"><span>Documentation: </span><span data-bind="html:documentation"></span></div>
+                        </div>
+                    </div>
+                    <div data-bind="visible: seeAlso.length > 0">
+                        <span>See also: </span>
+                        <!-- ko foreach: seeAlso -->
+                        <a data-bind="attr: {href: href}"><span data-bind="text: name"></span></a>
+                        <!-- /ko -->
+                    </div>
+                    <div>
+                        <span>Implemented in: </span>
+                        <!-- ko foreach: implemetedIn -->
+                        <a data-bind="attr: {href: href}"><span data-bind="text: name"></span></a>
+                        <!-- /ko -->
+                    </div>
+                    <div data-bind="visible: linkToPropertyFile.length > 0">
+                        <a data-bind="attr: {href: linkToPropertyFile}"><span>Show more</span></a>
+                    </div>
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -247,650 +257,1322 @@
     };
     var pmes = [
     
-    { name: "isValueEmpty", className: "Base", type: "(value: any) => boolean", pmeType: "method", "href": "Base/isValueEmpty.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "isValueEmpty", className: "Base", type: "(value: any) => boolean", pmeType: "method", "href": "Base/isValueEmpty.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "value", documentation: "\n", type: "any" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getType", className: "Base", type: "() => string", pmeType: "method", "href": "Base/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getType", className: "Base", type: "() => string", pmeType: "method", "href": "Base/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the type of the object as a string as it represents in the json.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "surveyId", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/surveyId.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "surveyId", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/surveyId.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>Set this property to automatically load survey Json from <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "loadSurveyFromService"  ]}, 
     
-    { name: "surveyPostId", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/surveyPostId.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "surveyPostId", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/surveyPostId.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>Set this property to automatically save the data in the <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "onComplete"  ]}, 
     
-    { name: "clientId", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/clientId.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "clientId", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/clientId.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Use this property as indentificator for a user, for example e-mail or unique customer id in your web application. If you are loading survey or posting survey results  from/to <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service, then the library do not allow to run the same survey the second time. On the second run, the user will see the ‘Thank you’ page.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "cookieName", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/cookieName.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "cookieName", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/cookieName.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>If the property is not empty, before starting to run the survey, the library checkes if the cookie with this name exists. If it is true, the survey goes to complete mode and an user sees the ‘Thank you’ page. On completing the survey the cookie with this name is created.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "sendResultOnPageNext", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/sendResultOnPageNext.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "sendResultOnPageNext", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/sendResultOnPageNext.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>Set it to true, to save results on completing every page.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "onPartialSend" ,  "clientId"  ]}, 
     
-    { name: "commentPrefix", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/commentPrefix.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "commentPrefix", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/commentPrefix.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>You may show comments input for the most of questions. The entered text in the comment input will be saved as ‘question name’ + ‘commentPrefix’.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "data"  ]}, 
     
-    { name: "focusFirstQuestionAutomatic", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/focusFirstQuestionAutomatic.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "focusFirstQuestionAutomatic", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/focusFirstQuestionAutomatic.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "<p>On showing the next or previous page, a first input is focused, if the property set to true.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "showNavigationButtons", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showNavigationButtons.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "showNavigationButtons", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showNavigationButtons.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "<p>Set it to false to hide ‘Prev’, ‘Next’ and ‘Complete’ buttons. It makes sense if you are going to create a custom navigation or have just one page or on setting goNextPageAutomatic property.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "goNextPageAutomatic"  ]}, 
     
-    { name: "showTitle", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showTitle.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "showTitle", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showTitle.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "<p>Set it to false hide survey title.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "title"  ]}, 
     
-    { name: "showPageTitles", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showPageTitles.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "showPageTitles", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showPageTitles.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "<p>Set it to false to hide page titles.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "PageModel.title"  ]}, 
     
-    { name: "showCompletedPage", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showCompletedPage.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "showCompletedPage", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showCompletedPage.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "<p>On finishing the survey the ‘Thank you’, page on complete, is shown. Set the property to false, to hide the ‘Thank you’ page.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "data" ,  "onComplete"  ]}, 
     
-    { name: "requiredText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/requiredText.html", isSerialized: "true", defaultValue: "*",serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "requiredText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/requiredText.html", isSerialized: "true", defaultValue: "*",serializedChoices:  null, documentation: "<p>A char/string that will be rendered in the title required questions.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "QuestionBase.title"  ]}, 
     
-    { name: "questionStartIndex", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/questionStartIndex.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "questionStartIndex", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/questionStartIndex.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>By default the first question index is 1. You may start it from 100 or from ‘A’, by setting 100 or ‘A’ to this property.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "QuestionBase.title" ,  "requiredText"  ]}, 
     
-    { name: "storeOthersAsComment", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/storeOthersAsComment.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "storeOthersAsComment", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/storeOthersAsComment.html", isSerialized: "true", defaultValue: true,serializedChoices:  null, documentation: "<p>By default the entered text in the others input in the checkbox/radiogroup/dropdown are stored as “question name “ + “-Comment”. The value itself is “question name”: “others”. Set this property to false, to store the entered text directly in the “question name” key.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "commentPrefix"  ]}, 
     
-    { name: "goNextPageAutomatic", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/goNextPageAutomatic.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "goNextPageAutomatic", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/goNextPageAutomatic.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>Set it true if you want to go to the next page without pressing ‘Next’ button when all questions are anwered.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "showNavigationButtons "  ]}, 
     
-    { name: "pages", className: "SurveyModel", type: "PageModel[]", pmeType: "property", "href": "SurveyModel/pages.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "pages", className: "SurveyModel", type: "PageModel[]", pmeType: "property", "href": "SurveyModel/pages.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>The list of all pages in the survey, including invisible.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "PageModel" ,  "visiblePages"  ]}, 
     
-    { name: "triggers", className: "SurveyModel", type: "SurveyTrigger[]", pmeType: "property", "href": "SurveyModel/triggers.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "triggers", className: "SurveyModel", type: "SurveyTrigger[]", pmeType: "property", "href": "SurveyModel/triggers.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>The list of triggers in the survey.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "SurveyTrigger"  ]}, 
     
-    { name: "clearInvisibleValues", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/clearInvisibleValues.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "clearInvisibleValues", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/clearInvisibleValues.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>Set it to true, to remove from data property values of invisible questions on survey complete. In this case, the invisible questions will not be stored on the server.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "QuestionBase.visible" ,  "oncComplete"  ]}, 
     
-    { name: "onComplete", className: "SurveyModel", type: "Event<(sender: SurveyModel) => any, any>", pmeType: "event", "href": "SurveyModel/onComplete.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onComplete", className: "SurveyModel", type: "Event<(sender: SurveyModel) => any, any>", pmeType: "event", "href": "SurveyModel/onComplete.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired after a user click on ‘Complete’ button and finished the survey. You may use it to send the data to your web server.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "data" ,  "clearInvisibleValues" ,  "completeLastPage" ,  "surveyPostId"  ]}, 
     
-    { name: "onPartialSend", className: "SurveyModel", type: "Event<(sender: SurveyModel) => any, any>", pmeType: "event", "href": "SurveyModel/onPartialSend.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onPartialSend", className: "SurveyModel", type: "Event<(sender: SurveyModel) => any, any>", pmeType: "event", "href": "SurveyModel/onPartialSend.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on clicking ‘Next’ page if sendResultOnPageNext is set to true. You may use it to save the intermidiate results, for example, if your survey is large enough.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "sendResultOnPageNext"  ]}, 
     
-    { name: "onCurrentPageChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onCurrentPageChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onCurrentPageChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onCurrentPageChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired when another page becomes the current. Typically it happens when a user click on ‘Next’ or ‘Prev’ buttons.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "currentPage" ,  "currentPageNo" ,  "nextPage" ,  "prevPage" ,  "completeLastPage"  ]}, 
     
-    { name: "onValueChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onValueChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onValueChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onValueChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired when the question value is changed. It can be done via UI by a user or programmatically on calling setValue method.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "setValue"  ]}, 
     
-    { name: "onVisibleChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onVisibleChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onVisibleChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onVisibleChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on changing a question visability.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "QuestionBase.visibile" ,  "QuestionBase.visibileIf"  ]}, 
     
-    { name: "onPageVisibleChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onPageVisibleChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onPageVisibleChanged", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onPageVisibleChanged.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on changing a page visability.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "PageModel.visibile" ,  "PageModel.visibileIf"  ]}, 
     
-    { name: "onQuestionAdded", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onQuestionAdded.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onQuestionAdded", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onQuestionAdded.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on adding a new question into survey.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "QuestionBase"  ]}, 
     
-    { name: "onQuestionRemoved", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onQuestionRemoved.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onQuestionRemoved", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onQuestionRemoved.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on removing a question from survey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "QuestionBase"  ]}, 
     
-    { name: "onPanelAdded", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onPanelAdded.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onPanelAdded", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onPanelAdded.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on adding a panel into survey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "PanelModel"  ]}, 
     
-    { name: "onPanelRemoved", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onPanelRemoved.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onPanelRemoved", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onPanelRemoved.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on removing a panel from survey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "PanelModel"  ]}, 
     
-    { name: "onValidateQuestion", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onValidateQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onValidateQuestion", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onValidateQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on validating value in a question. There are following properties in options: options.name is a question name, options.value is the current question value and options.error is an empty string. Set your error to options.error and survey will show the error for the question and block completing the survey or going to the next page.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onServerValidateQuestions", className: "SurveyModel", type: "(sender: SurveyModel, options: any) => any", pmeType: "property", "href": "SurveyModel/onServerValidateQuestions.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onServerValidateQuestions", className: "SurveyModel", type: "(sender: SurveyModel, options: any) => any", pmeType: "property", "href": "SurveyModel/onServerValidateQuestions.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Use this event to validate data on your server.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onProcessHtml", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onProcessHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onProcessHtml", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onProcessHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Use this event to modify the html before rendering, for example html on ‘Thank you’ page. Options has one parameter: Options.html.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "completedHtml" ,  "QuestionHtmlModel.html"  ]}, 
     
-    { name: "onTextMarkdown", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onTextMarkdown.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onTextMarkdown", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onTextMarkdown.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Use this event to process the markdown text.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onSendResult", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onSendResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onSendResult", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onSendResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event fires when it get response from the <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service on saving survey results. Use it to find out if the results have been saved successful.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onGetResult", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onGetResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onGetResult", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onGetResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Use it to get results after calling the getResult method. It returns a simple analytic from <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "getResult"  ]}, 
     
-    { name: "onUploadFile", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onUploadFile.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onUploadFile", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onUploadFile.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on uploading the file in QuestionFile. You may use it to change the file name or tells the library do not accept the file. There are three properties in options: options.name, options.file and options.accept.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "uploadFile"  ]}, 
     
-    { name: "onAfterRenderSurvey", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderSurvey.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onAfterRenderSurvey", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderSurvey.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired right after survey is rendered in DOM. options.htmlElement is the root element.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onAfterRenderPage", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onAfterRenderPage", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired right after a page is rendred in DOM. Use it to modify html elements. There are two parameters in options: options.currentPage, options.htmlElement</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onAfterRenderQuestion", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onAfterRenderQuestion", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired right after a question is rendred in DOM. Use it to modify html elements. There are two parameters in options: options.question, options.htmlElement</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "onAfterRenderPanel", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onAfterRenderPanel", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onAfterRenderPanel.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired right after a panel is rendred in DOM. Use it to modify html elements. There are two parameters in options: options.panel, options.htmlElement</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "jsonErrors", className: "SurveyModel", type: "JsonError[]", pmeType: "property", "href": "SurveyModel/jsonErrors.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "onMatrixRowAdded", className: "SurveyModel", type: "Event<(sender: SurveyModel, options: any) => any, any>", pmeType: "event", "href": "SurveyModel/onMatrixRowAdded.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The event is fired on adding a new row in Matrix Dynamic quesiton. Options.question is a matrix question.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "QuestionMatrixDynamicModel" ,  "QuestionMatrixDynamicModel.visibleRows"  ]}, 
     
-    { name: "getType", className: "SurveyModel", type: "() => string", pmeType: "method", "href": "SurveyModel/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "jsonErrors", className: "SurveyModel", type: "JsonError[]", pmeType: "property", "href": "SurveyModel/jsonErrors.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The list of errors on loading survey json. If the list is empty after loading a json then the json is correct and there is no errors in it.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "JsonError"  ]}, 
     
-    { name: "locale", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/locale.html", isSerialized: "true", defaultValue: null,serializedChoices:  ["","en"], documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "getType", className: "SurveyModel", type: "() => string", pmeType: "method", "href": "SurveyModel/getType.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getLocale", className: "SurveyModel", type: "() => string", pmeType: "method", "href": "SurveyModel/getLocale.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "locale", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/locale.html", isSerialized: "true", defaultValue: null,serializedChoices:  ["","en"], documentation: "<p>Use it to change the survey locale. By default it is empty, ‘en’. You may set it to ‘de’ - german, ‘fr’ - french and so on. The library has built-in localization for several languages. The library has a multi-language support as well.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getMarkdownHtml", className: "SurveyModel", type: "(text: string) => any", pmeType: "method", "href": "SurveyModel/getMarkdownHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getMarkdownHtml", className: "SurveyModel", type: "(text: string) => any", pmeType: "method", "href": "SurveyModel/getMarkdownHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "text", documentation: "\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getLocString", className: "SurveyModel", type: "(str: string) => any", pmeType: "method", "href": "SurveyModel/getLocString.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "emptySurveyText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/emptySurveyText.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the text that renders when there is no any visible page and question.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "title", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/title.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>Survey title.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "completedHtml", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/completedHtml.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>The html that shows on completed (‘Thank you’) page. Set it to change the default text.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "showCompletedPage" ,  "locale"  ]}, 
+    
+    
+    
+    
+    
+    { name: "pagePrevText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/pagePrevText.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>A text that renders on the ‘Prev’ button. Set it to change the default text.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "locale"  ]}, 
+    
+    
+    
+    
+    
+    { name: "pageNextText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/pageNextText.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>A text that renders on the ‘Next’ button. Set it to change the default text.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "locale"  ]}, 
+    
+    
+    
+    
+    
+    { name: "completeText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/completeText.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>A text that renders on the ‘Complete’ button. Set it to change the default text.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "locale"  ]}, 
+    
+    
+    
+    
+    
+    { name: "questionTitleTemplate", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/questionTitleTemplate.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>A template for a question title.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "QuestionModel.title"  ]}, 
+    
+    
+    
+    
+    
+    { name: "getQuestionTitleTemplate", className: "SurveyModel", type: "() => string", pmeType: "method", "href": "SurveyModel/getQuestionTitleTemplate.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the question title template</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "questionTitleTemplate" ,  "QuestionModel.title"  ]}, 
+    
+    
+    
+    
+    
+    { name: "showPageNumbers", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showPageNumbers.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "<p>Set this property to false to turn off the numbering on pages titles.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "showQuestionNumbers", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/showQuestionNumbers.html", isSerialized: "true", defaultValue: "on",serializedChoices:  ["on","onPage","off"], documentation: "<p>Set this property to false to turn off the numbering on questions titles.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "showProgressBar", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/showProgressBar.html", isSerialized: "true", defaultValue: "off",serializedChoices:  ["off","top","bottom"], documentation: "<p>Set this property to “top” to show the progress bar on the bottom or to “bottom” to show it on the bottom.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "processedTitle", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/processedTitle.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the text/html that renders as survey title.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "questionTitleLocation", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/questionTitleLocation.html", isSerialized: "true", defaultValue: "top",serializedChoices:  ["top","bottom"], documentation: "<p>Set this property to ‘bottom’ to show question title under the question.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "mode", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/mode.html", isSerialized: "true", defaultValue: "edit",serializedChoices:  ["edit","display"], documentation: "<p>Set this mode to ‘display’ to make the survey read-only.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "data", className: "SurveyModel", type: "any", pmeType: "property", "href": "SurveyModel/data.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>An object that stores the survey results/data. You may set it directly as { ‘question name’: questionValue, … }</p>\n", hasSet: "true",
+        linkToPropertyFile: "/docs/SurveyModel/data.html",
+        parameters:  [
+                    
+        ],
+        see:  [ "setValue" ,  "getValue"  ]}, 
+    
+    
+    
+    
+    
+    { name: "comments", className: "SurveyModel", type: "any", pmeType: "property", "href": "SurveyModel/comments.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns all comments from the data.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "data"  ]}, 
+    
+    
+    
+    
+    
+    { name: "visiblePages", className: "SurveyModel", type: "PageModel[]", pmeType: "property", "href": "SurveyModel/visiblePages.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the list of visible pages. If all pages are visible then it is the same as pages property.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "pages" ,  "PageModel.visible" ,  "PageModel.visibleIf"  ]}, 
+    
+    
+    
+    
+    
+    { name: "isEmpty", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isEmpty.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if there is no any page in the survey. The survey is empty.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "pageCount", className: "SurveyModel", type: "number", pmeType: "property", "href": "SurveyModel/pageCount.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the survey pages count.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "visiblePageCount" ,  "pages"  ]}, 
+    
+    
+    
+    
+    
+    { name: "visiblePageCount", className: "SurveyModel", type: "number", pmeType: "property", "href": "SurveyModel/visiblePageCount.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the survey visible pages count</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "pageCount" ,  "visiblePages"  ]}, 
+    
+    
+    
+    
+    
+    { name: "currentPage", className: "SurveyModel", type: "PageModel", pmeType: "property", "href": "SurveyModel/currentPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the current survey page. If survey is rendred then it is a page that a user can see/edit.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "currentPageNo", className: "SurveyModel", type: "number", pmeType: "property", "href": "SurveyModel/currentPageNo.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>The index of the current page in the visible pages array. It starts from 0.</p>\n", hasSet: "true",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "focusFirstQuestion", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/focusFirstQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Set the input focuse to the first question with the input.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "state", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/state.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the current survey state: ‘loading’ - loading from the json, ‘completed’ - a user has completed the survey, ‘running’ - a user answers a questions right now, ‘empty’ - there is nothing to show in the current survey.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "clear", className: "SurveyModel", type: "(clearData?: boolean, gotoFirstPage?: boolean) => void", pmeType: "method", "href": "SurveyModel/clear.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Clear the survey data and state. If the survey has a ‘completed’ state, it will have a ‘running’ state.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "str", documentation: "\n", type: "string" } 
+            { name: "clearData", documentation: "<p>clear the data</p>\n", type: "boolean" }, 
+            
+            { name: "gotoFirstPage", documentation: "<p>make the first page as a current page.</p>\n", type: "boolean" } 
                     
-        ] }, 
+        ],
+        see:  [ "data" ,  "state" ,  "currentPage"  ]}, 
     
-    { name: "emptySurveyText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/emptySurveyText.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "getProgress", className: "SurveyModel", type: "() => number", pmeType: "method", "href": "SurveyModel/getProgress.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the progress that a user made by answering on the survey.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "title", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/title.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "isNavigationButtonsShowing", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isNavigationButtonsShowing.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if navigation buttons: ‘Prev’, ‘Next’ or ‘Complete’ are shown.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "locTitle", className: "SurveyModel", type: "LocalizableString", pmeType: "property", "href": "SurveyModel/locTitle.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "isEditMode", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isEditMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if the survey in the edit mode.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "mode"  ]}, 
     
-    { name: "completedHtml", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/completedHtml.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
+    
+    
+    
+    
+    { name: "isDisplayMode", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isDisplayMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if the survey in the display mode.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "mode"  ]}, 
     
-    { name: "locCompletedHtml", className: "SurveyModel", type: "LocalizableString", pmeType: "property", "href": "SurveyModel/locCompletedHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "isDesignMode", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isDesignMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if the survey in the design mode. It is used by SurveyJS Editor</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  [ "setDesignMode "  ]}, 
     
-    { name: "pagePrevText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/pagePrevText.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "locPagePrevText", className: "SurveyModel", type: "LocalizableString", pmeType: "property", "href": "SurveyModel/locPagePrevText.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "pageNextText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/pageNextText.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "locPageNextText", className: "SurveyModel", type: "LocalizableString", pmeType: "property", "href": "SurveyModel/locPageNextText.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "completeText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/completeText.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "locCompleteText", className: "SurveyModel", type: "LocalizableString", pmeType: "property", "href": "SurveyModel/locCompleteText.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "questionTitleTemplate", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/questionTitleTemplate.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "getQuestionTitleTemplate", className: "SurveyModel", type: "() => string", pmeType: "method", "href": "SurveyModel/getQuestionTitleTemplate.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "locQuestionTitleTemplate", className: "SurveyModel", type: "LocalizableString", pmeType: "property", "href": "SurveyModel/locQuestionTitleTemplate.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "showPageNumbers", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/showPageNumbers.html", isSerialized: "true", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "showQuestionNumbers", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/showQuestionNumbers.html", isSerialized: "true", defaultValue: "on",serializedChoices:  ["on","onPage","off"], documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "showProgressBar", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/showProgressBar.html", isSerialized: "true", defaultValue: "off",serializedChoices:  ["off","top","bottom"], documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "processedTitle", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/processedTitle.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "questionTitleLocation", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/questionTitleLocation.html", isSerialized: "true", defaultValue: "top",serializedChoices:  ["top","bottom"], documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "mode", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/mode.html", isSerialized: "true", defaultValue: "edit",serializedChoices:  ["edit","display"], documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "data", className: "SurveyModel", type: "any", pmeType: "property", "href": "SurveyModel/data.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "comments", className: "SurveyModel", type: "any", pmeType: "property", "href": "SurveyModel/comments.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "isEmpty", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isEmpty.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "pageCount", className: "SurveyModel", type: "number", pmeType: "property", "href": "SurveyModel/pageCount.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "visiblePageCount", className: "SurveyModel", type: "number", pmeType: "property", "href": "SurveyModel/visiblePageCount.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "currentPage", className: "SurveyModel", type: "PageModel", pmeType: "property", "href": "SurveyModel/currentPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "currentPageNo", className: "SurveyModel", type: "number", pmeType: "property", "href": "SurveyModel/currentPageNo.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "true", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "focusFirstQuestion", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/focusFirstQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "state", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/state.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "clear", className: "SurveyModel", type: "(clearData?: boolean, gotoFirstPage?: boolean) => void", pmeType: "method", "href": "SurveyModel/clear.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    { name: "setDesignMode", className: "SurveyModel", type: "(value: boolean) => void", pmeType: "method", "href": "SurveyModel/setDesignMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Call it to set the survey into the design mode.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "clearData", documentation: "\n", type: "boolean" }, 
+            { name: "value", documentation: "<p>use true to set the survey into the design mode.</p>\n", type: "boolean" } 
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "hasCookie", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/hasCookie.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true, if a user has already completed the survey on this browser and there is a cookie about it. Survey goes to ‘completed’ state if the function returns true.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "cookieName" ,  "setCookie" ,  "deleteCookie  " ,  "state"  ]}, 
+    
+    
+    
+    
+    
+    { name: "setCookie", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/setCookie.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Set the cookie with cookieName in the browser. It is done automatically on survey complete if cookieName is not empty.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "cookieName" ,  "hasCookie" ,  "deleteCookie  "  ]}, 
+    
+    
+    
+    
+    
+    { name: "deleteCookie", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/deleteCookie.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Delete the cookie with cookieName in the browser.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "cookieName" ,  "hasCookie" ,  "setCookie  "  ]}, 
+    
+    
+    
+    
+    
+    { name: "nextPage", className: "SurveyModel", type: "() => boolean", pmeType: "method", "href": "SurveyModel/nextPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Call it to go to the next page. It returns false, if it is the last page. If there is an error, for example required question is empty, the function returns false as well.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "isCurrentPageHasErrors" ,  "prevPage" ,  "completeLastPage"  ]}, 
+    
+    
+    
+    
+    
+    { name: "isCurrentPageHasErrors", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isCurrentPageHasErrors.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true, if there is any error on the current page. For example, the required question is empty or a question validation is failed.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "nextPage"  ]}, 
+    
+    
+    
+    
+    
+    { name: "prevPage", className: "SurveyModel", type: "() => boolean", pmeType: "method", "href": "SurveyModel/prevPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Call it to go to the previous page. It returns false if the current page is the first page already. It doesn’t perform any checks, required questions can be empty.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "isFirstPage"  ]}, 
+    
+    
+    
+    
+    
+    { name: "completeLastPage", className: "SurveyModel", type: "() => boolean", pmeType: "method", "href": "SurveyModel/completeLastPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Call it to complete the survey, if the current page is the last one. It returns false if there is an error on the page.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "isCurrentPageHasErrors" ,  "nextPage"  ]}, 
+    
+    
+    
+    
+    
+    { name: "isFirstPage", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isFirstPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if the current page is the first one.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "isLastPage", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isLastPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if the current page is the last one.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "doComplete", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/doComplete.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Call it to complete the survey. It writes cookie if cookieName property is not empty, set the survey into ‘completed’ state, fire onComplete event and sendResult into <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service if surveyPostId property is not empty.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "cookieName" ,  "state" ,  "onComplete" ,  "surveyPostId"  ]}, 
+    
+    
+    
+    
+    
+    { name: "isValidatingOnServer", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isValidatingOnServer.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true, if at the current moment the question values on the current page are validating on the server.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "onServerValidateQuestions"  ]}, 
+    
+    
+    
+    
+    
+    { name: "processedCompletedHtml", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/processedCompletedHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the html for completed ‘Thank you’ page.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  [ "completedHtml"  ]}, 
+    
+    
+    
+    
+    
+    { name: "processedLoadingHtml", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/processedLoadingHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the html that shows on loading the json.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "progressText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/progressText.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the text for the current progress.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
+        parameters:  [
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "uploadFile", className: "SurveyModel", type: "(name: string, file: File, storeDataAsText: boolean, uploadingCallback: (status: string) => any) ...", pmeType: "method", "href": "SurveyModel/uploadFile.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Upload the file into servey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
             
-            { name: "gotoFirstPage", documentation: "\n", type: "boolean" } 
+            { name: "name", documentation: "<p>question name</p>\n", type: "string" }, 
+            
+            { name: "file", documentation: "<p>uploading file</p>\n", type: "File" }, 
+            
+            { name: "storeDataAsText", documentation: "<p>set it to true to encode file content into the survey results</p>\n", type: "boolean" }, 
+            
+            { name: "uploadingCallback", documentation: "<p>a call back function to get the status on uploading the file</p>\n", type: "(status: string) => any" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getProgress", className: "SurveyModel", type: "() => number", pmeType: "method", "href": "SurveyModel/getProgress.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "isNavigationButtonsShowing", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isNavigationButtonsShowing.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "isEditMode", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isEditMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "isDisplayMode", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isDisplayMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "isDesignMode", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isDesignMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "setDesignMode", className: "SurveyModel", type: "(value: boolean) => void", pmeType: "method", "href": "SurveyModel/setDesignMode.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    { name: "addPage", className: "SurveyModel", type: "(page: PageModel) => void", pmeType: "method", "href": "SurveyModel/addPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Add a page into the survey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "value", documentation: "\n", type: "boolean" } 
+            { name: "page", documentation: "\n", type: "PageModel" } 
                     
-        ] }, 
+        ],
+        see:  [ "addNewPage"  ]}, 
     
-    { name: "hasCookie", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/hasCookie.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "setCookie", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/setCookie.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "deleteCookie", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/deleteCookie.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "nextPage", className: "SurveyModel", type: "() => boolean", pmeType: "method", "href": "SurveyModel/nextPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
     
-    { name: "prevPage", className: "SurveyModel", type: "() => boolean", pmeType: "method", "href": "SurveyModel/prevPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "completeLastPage", className: "SurveyModel", type: "() => boolean", pmeType: "method", "href": "SurveyModel/completeLastPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "isFirstPage", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isFirstPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "isLastPage", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isLastPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "doComplete", className: "SurveyModel", type: "() => void", pmeType: "method", "href": "SurveyModel/doComplete.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "isValidatingOnServer", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isValidatingOnServer.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "processedCompletedHtml", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/processedCompletedHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "processedLoadingHtml", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/processedLoadingHtml.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "progressText", className: "SurveyModel", type: "string", pmeType: "property", "href": "SurveyModel/progressText.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
-        parameters:  [
-                    
-        ] }, 
-    
-    { name: "uploadFile", className: "SurveyModel", type: "(name: string, file: File, storeDataAsText: boolean, uploadingCallback: (status: string) => any) ...", pmeType: "method", "href": "SurveyModel/uploadFile.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    { name: "addNewPage", className: "SurveyModel", type: "(name: string) => PageModel", pmeType: "method", "href": "SurveyModel/addNewPage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Creates a new page and adds it into the survey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "name", documentation: "\n", type: "string" }, 
-            
-            { name: "file", documentation: "\n", type: "File" }, 
-            
-            { name: "storeDataAsText", documentation: "\n", type: "boolean" }, 
-            
-            { name: "uploadingCallback", documentation: "\n", type: "(status: string) => any" } 
+            { name: "name", documentation: "<p>a page name</p>\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  [ "addPage"  ]}, 
     
-    { name: "getQuestionByName", className: "SurveyModel", type: "(name: string, caseInsensitive?: boolean) => IQuestion", pmeType: "method", "href": "SurveyModel/getQuestionByName.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "removePage", className: "SurveyModel", type: "(page: PageModel) => void", pmeType: "method", "href": "SurveyModel/removePage.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Remove the page from the survey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "name", documentation: "\n", type: "string" }, 
+            { name: "page", documentation: "\n", type: "PageModel" } 
+                    
+        ],
+        see:  []}, 
+    
+    
+    
+    
+    
+    { name: "getQuestionByName", className: "SurveyModel", type: "(name: string, caseInsensitive?: boolean) => IQuestion", pmeType: "method", "href": "SurveyModel/getQuestionByName.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns a question by its name</p>\n", hasSet: "",
+        linkToPropertyFile: "",
+        parameters:  [
+            
+            { name: "name", documentation: "<p>a question name</p>\n", type: "string" }, 
             
             { name: "caseInsensitive", documentation: "\n", type: "boolean" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getQuestionsByNames", className: "SurveyModel", type: "(names: string[], caseInsensitive?: boolean) => IQuestion[]", pmeType: "method", "href": "SurveyModel/getQuestionsByNames.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getQuestionsByNames", className: "SurveyModel", type: "(names: string[], caseInsensitive?: boolean) => IQuestion[]", pmeType: "method", "href": "SurveyModel/getQuestionsByNames.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Get a list of questions by their names</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "names", documentation: "\n", type: "string[]" }, 
+            { name: "names", documentation: "<p>the array of names</p>\n", type: "string[]" }, 
             
             { name: "caseInsensitive", documentation: "\n", type: "boolean" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getPageByElement", className: "SurveyModel", type: "(element: IElement) => PageModel", pmeType: "method", "href": "SurveyModel/getPageByElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getPageByElement", className: "SurveyModel", type: "(element: IElement) => PageModel", pmeType: "method", "href": "SurveyModel/getPageByElement.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns a page on which an element (question or panel) is placed.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "element", documentation: "\n", type: "IElement" } 
+            { name: "element", documentation: "<p>Question or Panel</p>\n", type: "IElement" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getPageByQuestion", className: "SurveyModel", type: "(question: IQuestion) => PageModel", pmeType: "method", "href": "SurveyModel/getPageByQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getPageByQuestion", className: "SurveyModel", type: "(question: IQuestion) => PageModel", pmeType: "method", "href": "SurveyModel/getPageByQuestion.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns a page on which a question is located</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "question", documentation: "\n", type: "IQuestion" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getPageByName", className: "SurveyModel", type: "(name: string) => PageModel", pmeType: "method", "href": "SurveyModel/getPageByName.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getPageByName", className: "SurveyModel", type: "(name: string) => PageModel", pmeType: "method", "href": "SurveyModel/getPageByName.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns a page by it’s name.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "name", documentation: "\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getPagesByNames", className: "SurveyModel", type: "(names: string[]) => PageModel[]", pmeType: "method", "href": "SurveyModel/getPagesByNames.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getPagesByNames", className: "SurveyModel", type: "(names: string[]) => PageModel[]", pmeType: "method", "href": "SurveyModel/getPagesByNames.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Rertuns a list of pages by their names</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "names", documentation: "\n", type: "string[]" } 
+            { name: "names", documentation: "<p>a list of pages names</p>\n", type: "string[]" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getAllQuestions", className: "SurveyModel", type: "(visibleOnly?: boolean) => IQuestion[]", pmeType: "method", "href": "SurveyModel/getAllQuestions.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getAllQuestions", className: "SurveyModel", type: "(visibleOnly?: boolean) => IQuestion[]", pmeType: "method", "href": "SurveyModel/getAllQuestions.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the list of all questions in the survey</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "visibleOnly", documentation: "\n", type: "boolean" } 
+            { name: "visibleOnly", documentation: "<p>set it true, if you want to get only visible questions</p>\n", type: "boolean" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "sendResult", className: "SurveyModel", type: "(postId?: string, clientId?: string, isPartialCompleted?: boolean) => void", pmeType: "method", "href": "SurveyModel/sendResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "sendResult", className: "SurveyModel", type: "(postId?: string, clientId?: string, isPartialCompleted?: boolean) => void", pmeType: "method", "href": "SurveyModel/sendResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Send the survey result into <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "postId", documentation: "\n", type: "string" }, 
+            { name: "postId", documentation: "<p><a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service postId</p>\n", type: "string" }, 
             
-            { name: "clientId", documentation: "\n", type: "string" }, 
+            { name: "clientId", documentation: "<p>Typically a customer e-mail or an identificator</p>\n", type: "string" }, 
             
-            { name: "isPartialCompleted", documentation: "\n", type: "boolean" } 
+            { name: "isPartialCompleted", documentation: "<p>Set it to true if the survey is not completed yet and it is an intermediate results</p>\n", type: "boolean" } 
                     
-        ] }, 
+        ],
+        see:  [ "surveyPostId" ,  "clientId"  ]}, 
     
-    { name: "getResult", className: "SurveyModel", type: "(resultId: string, name: string) => void", pmeType: "method", "href": "SurveyModel/getResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getResult", className: "SurveyModel", type: "(resultId: string, name: string) => void", pmeType: "method", "href": "SurveyModel/getResult.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>It calls the <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service and on callback fires onGetResult event with all answers that your users made for a question.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "resultId", documentation: "\n", type: "string" }, 
+            { name: "resultId", documentation: "<p><a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service resultId</p>\n", type: "string" }, 
             
-            { name: "name", documentation: "\n", type: "string" } 
+            { name: "name", documentation: "<p>The question name</p>\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  [ "onGetResult"  ]}, 
     
-    { name: "loadSurveyFromService", className: "SurveyModel", type: "(surveyId?: string) => void", pmeType: "method", "href": "SurveyModel/loadSurveyFromService.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "loadSurveyFromService", className: "SurveyModel", type: "(surveyId?: string) => void", pmeType: "method", "href": "SurveyModel/loadSurveyFromService.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Loads the survey Json from the <a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "surveyId", documentation: "\n", type: "string" } 
+            { name: "surveyId", documentation: "<p><a href=\"http://www.dxsurvey.com\">dxsurvey.com</a> service surveyId</p>\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "isLoadingFromJson", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isLoadingFromJson.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "false", 
+    
+    
+    
+    
+    { name: "isLoadingFromJson", className: "SurveyModel", type: "boolean", pmeType: "property", "href": "SurveyModel/isLoadingFromJson.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns true if the survey is loading from Json at the current moment.</p>\n", hasSet: "false",
+        linkToPropertyFile: "",
         parameters:  [
                     
-        ] }, 
+        ],
+        see:  []}, 
     
-    { name: "getVariable", className: "SurveyModel", type: "(name: string) => any", pmeType: "method", "href": "SurveyModel/getVariable.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getVariable", className: "SurveyModel", type: "(name: string) => any", pmeType: "method", "href": "SurveyModel/getVariable.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns a variable value. Variable, unlike values, are not stored in the survey results.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "name", documentation: "\n", type: "string" } 
+            { name: "name", documentation: "<p>A variable name</p>\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  [ "SetVariable"  ]}, 
     
-    { name: "setVariable", className: "SurveyModel", type: "(name: string, newValue: any) => void", pmeType: "method", "href": "SurveyModel/setVariable.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "setVariable", className: "SurveyModel", type: "(name: string, newValue: any) => void", pmeType: "method", "href": "SurveyModel/setVariable.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Sets a variable value. Variable, unlike values, are not stored in the survey results.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "name", documentation: "\n", type: "string" }, 
+            { name: "name", documentation: "<p>A variable name</p>\n", type: "string" }, 
             
             { name: "newValue", documentation: "\n", type: "any" } 
                     
-        ] }, 
+        ],
+        see:  [ "GetVariable"  ]}, 
     
-    { name: "getValue", className: "SurveyModel", type: "(name: string) => any", pmeType: "method", "href": "SurveyModel/getValue.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getValue", className: "SurveyModel", type: "(name: string) => any", pmeType: "method", "href": "SurveyModel/getValue.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns a question value</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "name", documentation: "\n", type: "string" } 
+            { name: "name", documentation: "<p>A question name</p>\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  [ "data" ,  "setValue"  ]}, 
     
-    { name: "setValue", className: "SurveyModel", type: "(name: string, newValue: any) => void", pmeType: "method", "href": "SurveyModel/setValue.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "setValue", className: "SurveyModel", type: "(name: string, newValue: any) => void", pmeType: "method", "href": "SurveyModel/setValue.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Sets a question value. It runs all triggers and conditions (visibleIf properties). Goes to the next page if goNextPageAutomatic is true and all questions on the current page are answered correctly.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
-            { name: "name", documentation: "\n", type: "string" }, 
+            { name: "name", documentation: "<p>A question name</p>\n", type: "string" }, 
             
             { name: "newValue", documentation: "\n", type: "any" } 
                     
-        ] }, 
+        ],
+        see:  [ "data" ,  "getValue" ,  "PageModel.visibleIf" ,  "QuestionBase.visibleIf" ,  "goNextPageAutomatic"  ]}, 
     
-    { name: "getComment", className: "SurveyModel", type: "(name: string) => string", pmeType: "method", "href": "SurveyModel/getComment.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "getComment", className: "SurveyModel", type: "(name: string) => string", pmeType: "method", "href": "SurveyModel/getComment.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Returns the comment value</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "name", documentation: "\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  [ "setComment"  ]}, 
     
-    { name: "setComment", className: "SurveyModel", type: "(name: string, newValue: string) => void", pmeType: "method", "href": "SurveyModel/setComment.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "setComment", className: "SurveyModel", type: "(name: string, newValue: string) => void", pmeType: "method", "href": "SurveyModel/setComment.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Set the comment value</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "name", documentation: "\n", type: "string" }, 
             
             { name: "newValue", documentation: "\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  [ "getComment "  ]}, 
     
-    { name: "clearValue", className: "SurveyModel", type: "(name: string) => void", pmeType: "method", "href": "SurveyModel/clearValue.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Remove the value from the survey result.</p>\n", hasSet: "", 
+    
+    
+    
+    
+    { name: "clearValue", className: "SurveyModel", type: "(name: string) => void", pmeType: "method", "href": "SurveyModel/clearValue.html", isSerialized: "", defaultValue: null,serializedChoices:  null, documentation: "<p>Remove the value from the survey result.</p>\n", hasSet: "",
+        linkToPropertyFile: "",
         parameters:  [
             
             { name: "name", documentation: "<p>The name of the value. Typically it is a question name</p>\n", type: "string" } 
                     
-        ] }, 
+        ],
+        see:  []}, 
     ];
     pmes.sort(function(a, b) {
         if(a.name == b.name) return 0;
@@ -898,6 +1580,23 @@
     });
     function getClassObj(className) {
         return {name: className, href: "/docs/api_" + className.toLowerCase() + ".html"};
+    }
+    function getLinkObj(name) {
+        if(!name) return {name: "", href: ""};
+        var pos = name.indexOf('.');
+        var href = "";
+        if(pos < 0) {
+            if(name[0] === name[0].toUpperCase()) {
+                href = "/docs/api_" + name.toLowerCase() + ".html"
+            } else {
+                href = "#" + name;
+            }
+        } else {
+            var className = name.substr(0, pos);
+            var hash = name.substr(pos + 1);
+            href = "/docs/api_" + name.toLowerCase() + ".html#" + hash;
+        }
+        return {name: name, href: href};
     }
     var ModelItem = function(item) {
         var self = this;
@@ -910,6 +1609,7 @@
         this.pmeType = item.pmeType;
         this.href = item.href;
         this.documentation = item.documentation;
+        this.linkToPropertyFile = item.linkToPropertyFile;
         this.hasDocumentation = item.documentation && item.documentation.length > 0;
         this.hasDefaultValue = item.defaultValue != undefined;
         if(this.hasDefaultValue) this.defaultValue = item.defaultValue; else this.defaultValue = null;
@@ -931,6 +1631,12 @@
         this.propertySet = this.hasSet ? " writable" : " readonly";
         this.isSerialized = item.isSerialized == "true";
         this.koExpanded = ko.observable(false);
+        this.seeAlso = [];
+        if(item.see) {
+            for(var i = 0; i < item.see.length; i ++) {
+                this.seeAlso.push(getLinkObj(item.see[i]));
+            }
+        }
         this.showHide = function() {
             self.koExpanded(!self.koExpanded());
         }
@@ -964,12 +1670,19 @@
                 pmesHash[modelItem.name] = modelItem;
             }
         }
+        this.getHashName = function() {
+            var name = window.location.hash;
+            if(!name) return "";
+            return name.substr(1);
+        }
         this.filterString = ko.observable("");
         this.showPMETypes = ko.observable("all");
+        this.hashName = ko.observable(this.getHashName());
         this.koDummy = ko.observable(0);
         this.filteredItems = ko.computed(function() {
             var dummy = self.koDummy();
              return ko.utils.arrayFilter(self.items, function(item) {
+                if(self.hashName() == item.name) return true;
                 if(self.showPMETypes() != "all") {
                     if(self.showPMETypes() != item.pmeType) return false;
                 }
@@ -985,9 +1698,32 @@
         this.showPMETypes.subscribe(function(newValue) {
             self.koDummy(self.koDummy() + 1);
         });
+        this.hashName.subscribe(function(newValue) {
+            self.koDummy(self.koDummy() + 1);
+        });
+        this.hashChanged = function() {
+            this.hashName(this.getHashName());
+            name = this.hashName();
+            if(!name) return;
+            for(var i = 0; i < this.items.length; i ++) {
+                if(this.items[i].name == name) {
+                    this.items[i].koExpanded(true);
+                    break;
+                }
+            }
+        }
+        this.hashChanged();
 };
- 
-ko.applyBindings(new Model("SurveyModel"), document.getElementById("objectProperties"));
+
+var curModel = new Model("SurveyModel");
+
+ko.applyBindings(curModel, document.getElementById("objectProperties"));
+
+if ("onhashchange" in window) {
+    window.onhashchange = function () {
+        curModel.hashChanged();
+    }
+ }
  </script>
 
                 </div>
